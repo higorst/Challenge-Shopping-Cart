@@ -4,6 +4,9 @@ import { Colors } from "./Colors";
 const MarketplaceStyles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    containerProducts: {
+        flex: 1,
         flexDirection: 'row',
         flexWrap: 'wrap',
 
@@ -13,13 +16,6 @@ const MarketplaceStyles = StyleSheet.create({
     },
     scrollviewProducts: {
         width: Dimensions.get('screen').width,
-        
-        // flex: 1,
-        // padding: 10,
-        // flexDirection: 'row',
-        // flexWrap: 'wrap',
-
-        // justifyContent: 'center',
     },
 })
 

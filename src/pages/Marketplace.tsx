@@ -8,15 +8,16 @@ import api from '../services/api';
 import MarketplaceStyles from '../styles/MarketplaceStyles';
 
 import { connect } from "react-redux";
-import { loadProducts } from '../redux/Actions'
+// import { loadProducts } from '../redux/Actions'
+import { useNavigation } from '@react-navigation/native';
 
 import { SAGA_LOAD_PRODUCTS } from '../redux/sagas/types'
 
 // COMPONENTS
 import Product from '../Components/Product/index';
 import Header from '../Components/Header/index';
+
 import { Constants } from '../Constants/Constants';
-import products from '../redux/reducers/products';
 
 interface ProductInterface {
     id: number
@@ -29,19 +30,33 @@ interface ProductInterface {
 
 function Marketplace({ productsSAGA }: any) {
 
+    const navigation = useNavigation()
+
     const [products, setProducts] = useState<ProductInterface[]>([])
 
+    function handleToProduct(product: ProductInterface){
+        navigation.navigate(Constants.pageProduct, {
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            description: product.description,
+            category: product.category,
+            image: product.image,
+        })
+    }
+
     useEffect(() => {
-        console.log(productsSAGA)
-        if(productsSAGA.products)
-            setProducts(productsSAGA.products)
+        setProducts(productsSAGA)
     }, [productsSAGA])
 
     return (
-        <View>
-            <Header title={Constants.titleHeaderMarketplace} />
+        <View style={MarketplaceStyles.container}>
+            <Header 
+                title={Constants.titleHeaderMarketplace} 
+                search
+            />
             <ScrollView style={MarketplaceStyles.scrollviewProducts} >
-                <View style={MarketplaceStyles.container}>
+                <View style={MarketplaceStyles.containerProducts}>
                     {products.map(product => {
                         return (
                             <Product
@@ -52,6 +67,9 @@ function Marketplace({ productsSAGA }: any) {
                                 description={product.description}
                                 category={product.category}
                                 image={product.image}
+
+                                onPressCard={() => handleToProduct(product)}
+                                onPressImage={() => handleToProduct(product)}
                             />
                         )
                     })}
@@ -62,7 +80,7 @@ function Marketplace({ productsSAGA }: any) {
 }
 
 const mapStateToProps = (state: any) => ({
-    productsSAGA: state.products
+    productsSAGA: state.products.products
 });
 
 const mapDispatchToProps = (dispatch: any) => 

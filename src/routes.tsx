@@ -43,18 +43,10 @@ function Routes() {
                     <Screen
                         name={Constants.pageProduct}
                         component={Product}
-                        options={{
-                            headerShown: true,
-                            // header: () => <Header showCancel={false} title='Orfanato' />
-                        }}
                     />
                     <Screen
                         name={Constants.pageShoppingCart}
                         component={ShoppingCart}
-                        options={{
-                            headerShown: true,
-                            // header: () => <Header showCancel={false} title='Orfanato' />
-                        }}
                     />
                 </Navigator>
             </NavigationContainer>

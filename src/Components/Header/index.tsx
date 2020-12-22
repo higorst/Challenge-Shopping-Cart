@@ -11,9 +11,10 @@ import { Colors } from '../../styles/Colors';
 
 interface PropsHeader {
     title?: string
+    back?: boolean
+    search?: boolean
 }
 
-const num_itens = 3
 
 function Header(props: PropsHeader) {
 
@@ -21,55 +22,63 @@ function Header(props: PropsHeader) {
 
     const [enableSearch, setEnableSearch] = useState(false)
     const [searchText, setSearchText] = useState('')
+    const [itemsOnCart, setItemsOnCart] = useState(2)
 
-    function handleToMarketplace() {
-        navigation
+    // function handleToMarketplace() {
+    //     navigation
+    // }
+    function handleToShoppingCart(){
+        navigation.navigate(Constants.pageShoppingCart)
     }
 
     return (
-            <View>
-                {!enableSearch && (
-                    <View style={styles.container}>
-                <Text style={styles.title}>{props.title}</Text>
+        <View>
+            {!enableSearch && (
+                <View style={styles.container}>
+                    {props.back && (<BorderlessButton onPress={navigation.goBack}>
+                        <Icon name={Constants.iconBack} size={Constants.sizeIcon} color={Colors.primary} />
+                    </BorderlessButton>)}
 
-                <BorderlessButton onPress={() => setEnableSearch(!enableSearch)}>
-                    <Icon name={Constants.iconSearch} size={Constants.sizeIcon * 1.2} color={Colors.primary} />
-                </BorderlessButton>
+                    <Text style={styles.title}>{props.title}</Text>
 
-                <BorderlessButton onPress={handleToMarketplace}>
-                    <Icon
-                        name={num_itens > 0 ? Constants.iconCartFull : Constants.iconCart}
-                        size={Constants.sizeIcon * 1.2}
-                        color={num_itens > 0 ? Colors.secondaryDark : Colors.primary}
-                    />
-                    {num_itens > 0 && (
-                        <View style={styles.numItemsOnCartContainer}>
-                            <Text style={styles.numItemsOnCart}>{num_itens}</Text>
-                        </View>
-                    )}
-                </BorderlessButton>
-                    </View>
-                )}
+                    {props.search && (<BorderlessButton onPress={() => setEnableSearch(!enableSearch)}>
+                        <Icon name={Constants.iconSearch} size={Constants.sizeIcon * 1.2} color={Colors.primary} />
+                    </BorderlessButton>)}
 
-                {enableSearch && (
-                    <View style={styles.container}>
-                        <BorderlessButton onPress={() => setEnableSearch(!enableSearch)}>
-                            <Icon name={Constants.iconBack} size={Constants.sizeIcon} color={Colors.primary} />
-                        </BorderlessButton>
-    
-                        <TextInput
-                            placeholder="Digite sua busca"
-                            // Type='outlined'
-                            maxLength={60}
-                            // underlineColor={Colors.background}
-                            style={styles.textInput}
-                            value={searchText}
-                            onChangeText={text => setSearchText(text)}
+                    <BorderlessButton onPress={handleToShoppingCart}>
+                        <Icon
+                            name={itemsOnCart > 0 ? Constants.iconCartFull : Constants.iconCart}
+                            size={Constants.sizeIcon * 1.2}
+                            color={itemsOnCart > 0 ? Colors.secondaryDark : Colors.primary}
                         />
-    
-                    </View>
-                )}
-            </View>
+                        {itemsOnCart > 0 && (
+                            <View style={styles.numItemsOnCartContainer}>
+                                <Text style={styles.numItemsOnCart}>{itemsOnCart}</Text>
+                            </View>
+                        )}
+                    </BorderlessButton>
+                </View>
+            )}
+
+            {enableSearch && (
+                <View style={styles.container}>
+                    <BorderlessButton onPress={() => setEnableSearch(!enableSearch)}>
+                        <Icon name={Constants.iconBack} size={Constants.sizeIcon} color={Colors.primary} />
+                    </BorderlessButton>
+
+                    <TextInput
+                        placeholder="Digite sua busca"
+                        // Type='outlined'
+                        maxLength={60}
+                        // underlineColor={Colors.background}
+                        style={styles.textInput}
+                        value={searchText}
+                        onChangeText={text => setSearchText(text)}
+                    />
+
+                </View>
+            )}
+        </View>
 
     )
 

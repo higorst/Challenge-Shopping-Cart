@@ -25,12 +25,8 @@ function Product(props: ProductInterface) {
 
     function refactoringOfPrice(price: number){
         let new_price = price.toString().replace('.', ',')
-        if (!new_price.includes(',')){
-            new_price += ',00'
-        }
-        else if (new_price[new_price.length - 2] == ','){
-            new_price += '0'
-        }
+        new_price = new_price.includes(',') ? new_price : new_price + ',00'
+        new_price = new_price[new_price.length - 2] == ',' ? new_price + '0' : new_price
         return new_price
     }
 
