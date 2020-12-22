@@ -13,6 +13,7 @@ import ShoppingCart from './pages/ShoppingCart';
 
 // COLORS
 import { Colors } from './styles/Colors'
+import { Constants } from './Constants/Constants';
 
 function Routes() {
     return (
@@ -30,11 +31,11 @@ function Routes() {
                 }
             }} >
                 <Screen
-                    name="Marketplace"
+                    name={Constants.pageMarketplace}
                     component={Marketplace}
                 />
                 <Screen
-                    name="Product"
+                    name={Constants.pageProduct}
                     component={Product}
                     options={{
                         headerShown: true,
@@ -42,7 +43,7 @@ function Routes() {
                     }}
                 />
                 <Screen
-                    name="ShoppingCart"
+                    name={Constants.pageShoppingCart}
                     component={ShoppingCart}
                     options={{
                         headerShown: true,

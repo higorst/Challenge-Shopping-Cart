@@ -5,9 +5,12 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import api from '../services/api';
 
+import MarketplaceStyles from '../styles/MarketplaceStyles';
+
 // COMPONENTS
 import Product from '../Components/Product/index';
-import MarketplaceStyles from '../styles/MarketplaceStyles';
+import Header from '../Components/Header/index';
+import { Constants } from '../Constants/Constants';
 
 interface ProductInterface {
     id: number
@@ -34,6 +37,7 @@ function Marketplace() {
 
     return (
         <View>
+            <Header title={Constants.titleHeaderMarketplace} />
             <ScrollView style={MarketplaceStyles.scrollviewProducts} >
                 <View style={MarketplaceStyles.container}>
                     {products.map(product => {

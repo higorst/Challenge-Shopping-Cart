@@ -1,16 +1,29 @@
 import { Dimensions, StyleSheet } from "react-native";
 import { Colors } from "../../styles/Colors";
+import { Constants } from '../../Constants/Constants';
 
-const size_card = 0.4
+const size_card = 0.43
 
 const styles = StyleSheet.create({
     card: {
+        flex: 1,
         width: Dimensions.get('screen').width * size_card,
         margin: 10,
         elevation: 3,
         backgroundColor: Colors.backgroundCard,
 
         borderRadius: 15,
+    },
+    about: {
+        justifyContent: 'space-between'
+    },
+    sidebyside: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+
+        paddingBottom: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
     },
     image: {
         width: Dimensions.get('screen').width * size_card,
@@ -20,19 +33,25 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 15,
     },
     title: {
-        fontSize: 16,
+        height: 40,
+
+        fontSize: Constants.fontSizeTitleCard,
         fontWeight: 'bold',
 
         textAlign: 'center',
-        margin: 15,
+        textAlignVertical: 'center',
+
+        marginLeft:15,
+        marginRight: 15,
+        marginTop: 10,
+        marginBottom: 10,
     },
     price: {
-        fontSize: 14,
+        fontSize: Constants.fontSizePriceCard,
+        // fontStyle: 'italic',
+        fontWeight: 'bold',
 
-        fontStyle: 'italic',
-
-        marginBottom: 10,
-        marginLeft: 15,
+        color: Colors.secondaryDark,
     },
 })
 
