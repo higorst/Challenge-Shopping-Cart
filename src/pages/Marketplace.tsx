@@ -32,7 +32,9 @@ function Marketplace({ productsSAGA }: any) {
     const [products, setProducts] = useState<ProductInterface[]>([])
 
     useEffect(() => {
-        setProducts(productsSAGA.products)
+        console.log(productsSAGA)
+        if(productsSAGA.products)
+            setProducts(productsSAGA.products)
     }, [productsSAGA])
 
     return (
@@ -64,7 +66,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => 
-    loadProducts(dispatch({ type: SAGA_LOAD_PRODUCTS }))
+    dispatch({ type: SAGA_LOAD_PRODUCTS })
 
 export default connect(
     mapStateToProps,

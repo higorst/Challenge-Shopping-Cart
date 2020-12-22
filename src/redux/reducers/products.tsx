@@ -1,3 +1,4 @@
+import { InitialState } from '@react-navigation/native';
 import { LOAD_PRODUCTS } from '../Types'
 
 const initialState = {
@@ -17,12 +18,12 @@ const products = (state: any, action: any) => {
     switch (action.type) {
         case LOAD_PRODUCTS:
             console.log('reducer products')
-            return Object.assign({}, state, action.payload);
-            // return { ...state, products: action.payload.products };
+            // return Object.assign({}, state, action.payload.products);
+            return { ...state, products: action.payload.products };
         default:
             console.log('reducer initial state')
-            return Object.assign({}, state);
-            // return state;
+            // return Object.assign({}, state);
+            return state ? state : initialState;
     }
 };
 
