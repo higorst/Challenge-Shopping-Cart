@@ -72,7 +72,7 @@ function Products(props: any) {
 
                         <View>
                             <View style={ProductStyles.headerSubtitle}>
-                                <Text style={ProductStyles.subtitle}>Descrição</Text>
+                                <Text style={ProductStyles.subtitle}>{Constants.titleDescription}</Text>
                                 <View style={ProductStyles.line} />
                             </View>
                             <Text style={ProductStyles.description}>{productDescription}</Text>
@@ -80,7 +80,7 @@ function Products(props: any) {
 
                         <View>
                             <View style={ProductStyles.headerSubtitle}>
-                                <Text style={ProductStyles.subtitle}>Categoria</Text>
+                                <Text style={ProductStyles.subtitle}>{Constants.titleCategory}</Text>
                                 <View style={ProductStyles.line} />
                             </View>
                             <Text style={ProductStyles.category}>{productCategory}</Text>
@@ -88,11 +88,11 @@ function Products(props: any) {
 
                         <View style={ProductStyles.containerButtons}>
                             <TouchableOpacity style={ProductStyles.buttonCart}>
-                                <Text style={ProductStyles.titleButtonCart}>ADICIONAR</Text>
+                                <Text style={ProductStyles.titleButtonCart}>{Constants.titleButtonAddCart}</Text>
                                 <Icon name={Constants.iconCartAdd} size={Constants.sizeIcon} color={Colors.white} />
                             </TouchableOpacity>
                             <TouchableOpacity style={ProductStyles.buttonBuy}>
-                                <Text style={ProductStyles.titleButtonBuy}>COMPRE AGORA</Text>
+                                <Text style={ProductStyles.titleButtonBuy}>{Constants.titleButtonBuyNow}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

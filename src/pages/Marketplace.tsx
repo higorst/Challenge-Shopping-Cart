@@ -18,6 +18,7 @@ import Product from '../Components/Product/index';
 import Header from '../Components/Header/index';
 
 import { Constants } from '../Constants/Constants';
+import Menu from '../Components/Menu';
 
 interface ProductInterface {
     id: number
@@ -33,6 +34,7 @@ function Marketplace({ productsSAGA }: any) {
     const navigation = useNavigation()
 
     const [products, setProducts] = useState<ProductInterface[]>([])
+    const [categories, setCategories] = useState<string[]>([])
 
     function handleToProduct(product: ProductInterface){
         navigation.navigate(Constants.pageProduct, {
@@ -45,8 +47,19 @@ function Marketplace({ productsSAGA }: any) {
         })
     }
 
+    function findCategories(products: ProductInterface[]){
+        let categories: string[] = []
+        for(const product of products){
+            if (!categories.some(item => item === product.category)){
+                categories.push(product.category)
+            }
+        }
+        setCategories(categories)
+    }
+
     useEffect(() => {
         setProducts(productsSAGA)
+        findCategories(productsSAGA)
     }, [productsSAGA])
 
     return (
@@ -54,6 +67,9 @@ function Marketplace({ productsSAGA }: any) {
             <Header 
                 title={Constants.titleHeaderMarketplace} 
                 search
+            />
+            <Menu 
+                categories={categories}
             />
             <ScrollView style={MarketplaceStyles.scrollviewProducts} >
                 <View style={MarketplaceStyles.containerProducts}>

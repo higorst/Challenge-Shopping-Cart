@@ -10,7 +10,7 @@ const MarketplaceStyles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
 
-        paddingTop: 25,
+        // paddingTop: 25,
 
         justifyContent: 'center',
     },
