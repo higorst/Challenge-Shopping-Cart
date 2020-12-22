@@ -7,9 +7,16 @@ import api from '../services/api';
 
 import MarketplaceStyles from '../styles/MarketplaceStyles';
 
+import { connect } from "react-redux";
+// import { loadProducts } from '../redux/Actions'
+import { useNavigation } from '@react-navigation/native';
+
+import { SAGA_LOAD_PRODUCTS } from '../redux/sagas/types'
+
 // COMPONENTS
 import Product from '../Components/Product/index';
 import Header from '../Components/Header/index';
+
 import { Constants } from '../Constants/Constants';
 
 interface ProductInterface {
@@ -21,25 +28,35 @@ interface ProductInterface {
     image: string
 }
 
-function Marketplace() {
+function Marketplace({ productsSAGA }: any) {
+
+    const navigation = useNavigation()
 
     const [products, setProducts] = useState<ProductInterface[]>([])
 
+    function handleToProduct(product: ProductInterface){
+        navigation.navigate(Constants.pageProduct, {
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            description: product.description,
+            category: product.category,
+            image: product.image,
+        })
+    }
+
     useEffect(() => {
-        api.get('/products/')
-            .then(response => {
-                setProducts(response.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
+        setProducts(productsSAGA)
+    }, [productsSAGA])
 
     return (
-        <View>
-            <Header title={Constants.titleHeaderMarketplace} />
+        <View style={MarketplaceStyles.container}>
+            <Header 
+                title={Constants.titleHeaderMarketplace} 
+                search
+            />
             <ScrollView style={MarketplaceStyles.scrollviewProducts} >
-                <View style={MarketplaceStyles.container}>
+                <View style={MarketplaceStyles.containerProducts}>
                     {products.map(product => {
                         return (
                             <Product
@@ -50,6 +67,9 @@ function Marketplace() {
                                 description={product.description}
                                 category={product.category}
                                 image={product.image}
+
+                                onPressCard={() => handleToProduct(product)}
+                                onPressImage={() => handleToProduct(product)}
                             />
                         )
                     })}
@@ -59,4 +79,14 @@ function Marketplace() {
     )
 }
 
-export default Marketplace
+const mapStateToProps = (state: any) => ({
+    productsSAGA: state.products.products
+});
+
+const mapDispatchToProps = (dispatch: any) => 
+    dispatch({ type: SAGA_LOAD_PRODUCTS })
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Marketplace);

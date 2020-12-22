@@ -1,4 +1,5 @@
 // para mensagens e alertas
 export const messages = {
-    titleHeaderMarketplace: 'Confira nossos produtos'
+    titleHeaderMarketplace: 'Confira nossos produtos',
+    titleHeaderProduct: 'Detalhes do Produto',
 };

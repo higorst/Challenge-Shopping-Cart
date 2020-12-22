@@ -4,4 +4,6 @@ export const dimensions = {
 
     fontSizeTitleCard: 17,
     fontSizePriceCard: 17,
+
+    fontSizeTitleProduct: 22,
 };
