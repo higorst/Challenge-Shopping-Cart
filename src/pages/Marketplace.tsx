@@ -7,10 +7,16 @@ import api from '../services/api';
 
 import MarketplaceStyles from '../styles/MarketplaceStyles';
 
+import { connect } from "react-redux";
+import { loadProducts } from '../redux/Actions'
+
+import { SAGA_LOAD_PRODUCTS } from '../redux/sagas/types'
+
 // COMPONENTS
 import Product from '../Components/Product/index';
 import Header from '../Components/Header/index';
 import { Constants } from '../Constants/Constants';
+import products from '../redux/reducers/products';
 
 interface ProductInterface {
     id: number
@@ -21,19 +27,13 @@ interface ProductInterface {
     image: string
 }
 
-function Marketplace() {
+function Marketplace({ productsSAGA }: any) {
 
     const [products, setProducts] = useState<ProductInterface[]>([])
 
     useEffect(() => {
-        api.get('/products/')
-            .then(response => {
-                setProducts(response.data)
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }, [])
+        setProducts(productsSAGA.products)
+    }, [productsSAGA])
 
     return (
         <View>
@@ -59,4 +59,14 @@ function Marketplace() {
     )
 }
 
-export default Marketplace
+const mapStateToProps = (state: any) => ({
+    productsSAGA: state.products
+});
+
+const mapDispatchToProps = (dispatch: any) => 
+    loadProducts(dispatch({ type: SAGA_LOAD_PRODUCTS }))
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Marketplace);

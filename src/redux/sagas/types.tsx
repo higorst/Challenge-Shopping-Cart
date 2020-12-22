@@ -1,0 +1,1 @@
+export const SAGA_LOAD_PRODUCTS = 'SAGA_LOAD_PRODUCTS'
