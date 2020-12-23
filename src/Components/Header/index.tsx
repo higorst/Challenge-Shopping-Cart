@@ -16,6 +16,7 @@ interface PropsHeader {
     back?: boolean
     search?: boolean
     hideCart?: boolean
+    onProduct?: boolean
     amount?: any
 }
 
@@ -41,7 +42,13 @@ function Header(props: PropsHeader) {
         <View>
             {/* {!enableSearch && ( */}
             <View style={styles.container}>
-                {props.back && (<BorderlessButton onPress={navigation.goBack}>
+                {props.back && (<BorderlessButton onPress={() => {
+                    if (props.onProduct){
+                        navigation.navigate(Constants.pageMarketplace)
+                    } else {
+                        navigation.goBack()
+                    }
+                }}>
                     <Icon name={Constants.iconBack} size={Constants.sizeIcon} color={Colors.primary} />
                 </BorderlessButton>)}
 

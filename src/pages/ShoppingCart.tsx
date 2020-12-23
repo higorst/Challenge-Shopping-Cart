@@ -4,9 +4,12 @@ import { Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { connect } from "react-redux";
+import { useNavigation } from '@react-navigation/native';
+
 import Header from '../Components/Header';
 import Product from '../Components/Product';
 import ShoppingCartStyles from '../styles/ShoppingCartStyles';
+import { Constants } from '../Constants/Constants';
 
 interface ProductInterface {
     id: number
@@ -20,17 +23,30 @@ interface ProductInterface {
 
 function ShoppingCart(props: any) {
 
+    const navigation = useNavigation()
+
     const [items, setItems] = useState<ProductInterface[]>([])
+
+
+    function handleToProduct(product: ProductInterface) {
+        navigation.navigate(Constants.pageProduct, {
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            description: product.description,
+            category: product.category,
+            image: product.image,
+        })
+    }
 
     useEffect(() => {
         setItems(props.items)
-        console.log(props.items)
     }, [props.items])
 
     return (
         <View style={ShoppingCartStyles.container}>
             <Header
-                title={items.length === 0 ? 'Adicione items ao carrinho' : 'Items Selecionados'}
+                title={items.length === 0 ? 'Adicione itens ao carrinho' : 'Itens Selecionados'}
                 hideCart
                 back
             />
@@ -46,9 +62,11 @@ function ShoppingCart(props: any) {
                                 description={product.description}
                                 category={product.category}
                                 image={product.image}
+                                amount={product.amount}
+                                cart
 
-                            // onPressCard={() => handleToProduct(product)}
-                            // onPressImage={() => handleToProduct(product)}
+                                // onPressCard={() => handleToProduct(product)}
+                                onPressImage={() => handleToProduct(product)}
                             />
                         )
                     })}

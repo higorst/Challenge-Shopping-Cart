@@ -75,7 +75,7 @@ function Marketplace({ productsSAGA, categoriesSAGA }: any) {
                                     category={product.category}
                                     image={product.image}
     
-                                    onPressCard={() => handleToProduct(product)}
+                                    // onPressCard={() => handleToProduct(product)}
                                     onPressImage={() => handleToProduct(product)}
                                 />
                             )

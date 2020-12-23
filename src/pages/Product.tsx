@@ -66,6 +66,7 @@ function Products(props: any) {
             <Header
                 title={Constants.titleHeaderProduct}
                 back
+                onProduct
             />
 
             <LinearGradient
@@ -104,7 +105,7 @@ function Products(props: any) {
                                     description: params.description,
                                     category: params.category,
                                     image: params.image,
-                                    amount: 0
+                                    amount: 1
                                 } })
                             }}>
                                 <Text style={ProductStyles.titleButtonCart}>{Constants.titleButtonAddCart}</Text>
@@ -118,7 +119,7 @@ function Products(props: any) {
                                     description: params.description,
                                     category: params.category,
                                     image: params.image,
-                                    amount: 0
+                                    amount: 1
                                 } })
                                 navigation.navigate(Constants.pageShoppingCart)
                             }}>
