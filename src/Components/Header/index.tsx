@@ -40,10 +40,9 @@ function Header(props: PropsHeader) {
 
     return (
         <View>
-            {/* {!enableSearch && ( */}
             <View style={styles.container}>
                 {props.back && (<BorderlessButton onPress={() => {
-                    if (props.onProduct){
+                    if (props.onProduct) {
                         navigation.navigate(Constants.pageMarketplace)
                     } else {
                         navigation.goBack()
@@ -54,11 +53,7 @@ function Header(props: PropsHeader) {
 
                 <Text style={styles.title}>{props.title}</Text>
 
-                {/* {props.search && (<BorderlessButton onPress={() => setEnableSearch(!enableSearch)}>
-                        <Icon name={Constants.iconSearch} size={Constants.sizeIcon * 1.2} color={Colors.primary} />
-                    </BorderlessButton>)} */}
-
-                {!props.hideCart && (<BorderlessButton onPress={handleToShoppingCart}>
+                <BorderlessButton onPress={handleToShoppingCart}>
                     <Icon
                         name={itemsOnCart > 0 ? Constants.iconCartFull : Constants.iconCart}
                         size={Constants.sizeIcon * 1.2}
@@ -69,35 +64,14 @@ function Header(props: PropsHeader) {
                             <Text style={styles.numItemsOnCart}>{itemsOnCart}</Text>
                         </View>
                     )}
-                </BorderlessButton>)}
+                </BorderlessButton>
             </View>
-            {/* )} */}
-
-            {/* {enableSearch && (
-                <View style={styles.container}>
-                    <BorderlessButton onPress={() => setEnableSearch(!enableSearch)}>
-                        <Icon name={Constants.iconBack} size={Constants.sizeIcon} color={Colors.primary} />
-                    </BorderlessButton>
-
-                    <TextInput
-                        placeholder="Digite sua busca"
-                        // Type='outlined'
-                        maxLength={60}
-                        // underlineColor={Colors.background}
-                        style={styles.textInput}
-                        value={searchText}
-                        onChangeText={text => setSearchText(text)}
-                    />
-
-                </View>
-            )} */}
         </View>
 
     )
 
 }
 
-// export default Header
 const mapStateToProps = (state: any) => ({
     amount: state.cart.amount,
 });

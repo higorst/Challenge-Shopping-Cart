@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: 'Roboto',
         color: Colors.primaryDark,
-        fontSize: 20
+        fontSize: 20,
     },
     numItemsOnCartContainer: {
         fontSize: 14,
