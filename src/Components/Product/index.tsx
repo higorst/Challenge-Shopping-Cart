@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Image, Text, View } from 'react-native'
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { TouchableOpacity, TouchableWithoutFeedback } from 'react-native-gesture-handler'
@@ -30,16 +30,24 @@ interface ProductInterface {
     amount?: number
     cart?: boolean
     dispatch: any
+    itemsOnCartSAGA: any
 }
 
 function Product(props: ProductInterface) {
 
+    const [itemsOnCart, setItemsOnCart] = useState<ProductInterface[]>([])
+
     function refactoringOfPrice(price: number) {
+        price = parseFloat(price.toFixed(2))
         let new_price = price.toString().replace('.', ',')
         new_price = new_price.includes(',') ? new_price : new_price + ',00'
         new_price = new_price[new_price.length - 2] == ',' ? new_price + '0' : new_price
         return new_price
     }
+
+    useEffect(() => {
+        setItemsOnCart(props.itemsOnCartSAGA)
+    }, [props.itemsOnCartSAGA])
 
     if (props.cart) {
         return (
@@ -55,8 +63,10 @@ function Product(props: ProductInterface) {
                     <Text style={stylesCart.title} >{props.title}</Text>
                     <View style={stylesCart.amount}>
                         <BorderlessButton onPress={() => {
+                            let update = (props.amount ? props.amount : 1) > 1
                             props.dispatch({
-                                type: SAGA_UPDATE_ITEM_CART, item: {
+                                type: update ? SAGA_UPDATE_ITEM_CART : SAGA_REMOVE_ITEM_CART, 
+                                item: {
                                     id: props.id,
                                     title: props.title,
                                     price: props.price,
@@ -117,6 +127,7 @@ function Product(props: ProductInterface) {
             </TouchableWithoutFeedback>
         )
     } else {
+        const onCart = itemsOnCart.map(function (item: any) { return item.id; }).indexOf(props.id) !== -1
         return (
             <TouchableWithoutFeedback onPress={props.onPressCard} style={styles.card}>
 
@@ -129,19 +140,37 @@ function Product(props: ProductInterface) {
                     <View style={styles.sidebyside}>
                         <Text style={styles.price} >R$ {refactoringOfPrice(props.price)}</Text>
                         <BorderlessButton onPress={() => {
-                            props.dispatch({
-                                type: SAGA_ADD_ITEM_CART, item: {
-                                    id: props.id,
-                                    title: props.title,
-                                    price: props.price,
-                                    description: props.description,
-                                    category: props.category,
-                                    image: props.image,
-                                    amount: 1
-                                }
-                            })
+                            if (onCart){
+                                props.dispatch({
+                                    type: SAGA_REMOVE_ITEM_CART, item: {
+                                        id: props.id,
+                                        title: props.title,
+                                        price: props.price,
+                                        description: props.description,
+                                        category: props.category,
+                                        image: props.image,
+                                        amount: 1
+                                    }
+                                })
+                            }else{
+                                props.dispatch({
+                                    type: SAGA_ADD_ITEM_CART, item: {
+                                        id: props.id,
+                                        title: props.title,
+                                        price: props.price,
+                                        description: props.description,
+                                        category: props.category,
+                                        image: props.image,
+                                        amount: 1
+                                    }
+                                })
+                            }
                         }}>
-                            <Icon name={Constants.iconCartAdd} size={Constants.sizeIcon} color={Colors.iconAdd} />
+                            <Icon 
+                                name={onCart ? Constants.iconCartDelete : Constants.iconCartAdd} 
+                                size={Constants.sizeIcon} 
+                                color={onCart ? Colors.iconDelete : Colors.iconAdd} 
+                            />
                         </BorderlessButton>
                     </View>
                 </View>
@@ -153,4 +182,10 @@ function Product(props: ProductInterface) {
 }
 
 
-export default connect()(Product);
+const mapStateToProps = (state: any) => ({
+    itemsOnCartSAGA: state.cart.items,
+});
+
+export default connect(
+    mapStateToProps,
+)(Product);

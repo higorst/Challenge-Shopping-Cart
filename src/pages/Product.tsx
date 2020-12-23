@@ -45,6 +45,8 @@ function Products(props: any) {
     const [productCategory, setProductCategory] = useState<string>()
     const [productImage, setProductImage] = useState<string>()
 
+    const [itemsOnCart, setItemsOnCart] = useState<ProductInterface[]>([])
+
     function refactoringOfPrice(price: number) {
         let new_price = price.toString().replace('.', ',')
         new_price = new_price.includes(',') ? new_price : new_price + ',00'
@@ -60,6 +62,12 @@ function Products(props: any) {
         setProductCategory(params.category)
         setProductImage(params.image)
     }, [params])
+
+    useEffect(() => {
+        setItemsOnCart(props.itemsOnCartSAGA)
+    }, [props.itemsOnCartSAGA])
+
+    const onCart = itemsOnCart.map(function (item: any) { return item.id; }).indexOf(params.id) !== -1
 
     return (
         <View style={ProductStyles.container}>
@@ -97,30 +105,53 @@ function Products(props: any) {
                         </View>
 
                         <View style={ProductStyles.containerButtons}>
-                            <TouchableOpacity style={ProductStyles.buttonCart} onPress={() => {
-                                props.dispatch({ type: SAGA_ADD_ITEM_CART, item: {
-                                    id: params.id,
-                                    title: params.title,
-                                    price: params.price,
-                                    description: params.description,
-                                    category: params.category,
-                                    image: params.image,
-                                    amount: 1
-                                } })
+                            <TouchableOpacity style={onCart ? ProductStyles.buttonCartRemove : ProductStyles.buttonCartAdd} onPress={() => {
+                                if (onCart) {
+                                    props.dispatch({
+                                        type: SAGA_REMOVE_ITEM_CART, item: {
+                                            id: params.id,
+                                            title: params.title,
+                                            price: params.price,
+                                            description: params.description,
+                                            category: params.category,
+                                            image: params.image,
+                                            amount: 1
+                                        }
+                                    })
+                                } else {
+                                    props.dispatch({
+                                        type: SAGA_ADD_ITEM_CART, item: {
+                                            id: params.id,
+                                            title: params.title,
+                                            price: params.price,
+                                            description: params.description,
+                                            category: params.category,
+                                            image: params.image,
+                                            amount: 1
+                                        }
+                                    })
+                                }
                             }}>
-                                <Text style={ProductStyles.titleButtonCart}>{Constants.titleButtonAddCart}</Text>
-                                <Icon name={Constants.iconCartAdd} size={Constants.sizeIcon} color={Colors.white} />
+                                <Text style={ProductStyles.titleButtonCart}>{onCart ? 'REMOVER' : Constants.titleButtonAddCart}</Text>
+                                {/* <Icon name={Constants.iconCartAdd} size={Constants.sizeIcon} color={Colors.white} /> */}
+                                <Icon
+                                    name={onCart ? Constants.iconCartDelete : Constants.iconCartAdd}
+                                    size={Constants.sizeIcon}
+                                    color={onCart ? Colors.iconDelete : Colors.iconAdd}
+                                />
                             </TouchableOpacity>
                             <TouchableOpacity style={ProductStyles.buttonBuy} onPress={() => {
-                                props.dispatch({ type: SAGA_ADD_ITEM_CART, item: {
-                                    id: params.id,
-                                    title: params.title,
-                                    price: params.price,
-                                    description: params.description,
-                                    category: params.category,
-                                    image: params.image,
-                                    amount: 1
-                                } })
+                                props.dispatch({
+                                    type: SAGA_ADD_ITEM_CART, item: {
+                                        id: params.id,
+                                        title: params.title,
+                                        price: params.price,
+                                        description: params.description,
+                                        category: params.category,
+                                        image: params.image,
+                                        amount: 1
+                                    }
+                                })
                                 navigation.navigate(Constants.pageShoppingCart)
                             }}>
                                 <Text style={ProductStyles.titleButtonBuy}>{Constants.titleButtonBuyNow}</Text>
@@ -134,11 +165,10 @@ function Products(props: any) {
     )
 }
 
-// const mapStateToProps = (state: any) => ({
-//     productsSAGA: state.products.products,
-//     categoriesSAGA: state.categories.categories,
-// });
+const mapStateToProps = (state: any) => ({
+    itemsOnCartSAGA: state.cart.items,
+});
 
 export default connect(
-    // mapStateToProps,
+    mapStateToProps,
 )(Products);

@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Colors.secondaryLight,
+        backgroundColor: Colors.optionFilter,
     },
     button: {
         position: "absolute",

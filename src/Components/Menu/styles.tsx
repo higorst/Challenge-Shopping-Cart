@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
         marginRight: 5,
     },
     menuOption: {
-        width: Dimensions.get('screen').width * 0.4,
-        textAlign: 'center',
+        // width: Dimensions.get('screen').width * 0.4,
+        // textAlign: 'center',
         textAlignVertical: 'center',
 
         color: Colors.white,
@@ -72,6 +72,10 @@ const styles = StyleSheet.create({
     },
     button: {
         flex: 1,
+
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+
         backgroundColor: Colors.primaryLight,
         padding: 5,
         borderRadius: 5,

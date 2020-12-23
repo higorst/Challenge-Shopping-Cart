@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View } from 'react-native'
 
-import { ScrollView } from 'react-native-gesture-handler';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { connect } from "react-redux";
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +12,8 @@ import Header from '../Components/Header';
 import Product from '../Components/Product';
 import ShoppingCartStyles from '../styles/ShoppingCartStyles';
 import { Constants } from '../Constants/Constants';
+import BottomBar from '../Components/BottomBar';
+import { Colors } from '../styles/Colors';
 
 interface ProductInterface {
     id: number
@@ -46,7 +50,7 @@ function ShoppingCart(props: any) {
     return (
         <View style={ShoppingCartStyles.container}>
             <Header
-                title={items.length === 0 ? 'Adicione itens ao carrinho' : 'Itens Selecionados'}
+                title={items.length === 0 ? Constants.titleAddItemsOnCart : Constants.titleItemsOnCart}
                 hideCart
                 back
             />
@@ -72,6 +76,20 @@ function ShoppingCart(props: any) {
                     })}
                 </View>
             </ScrollView>
+            {items.length === 0 && (
+                <View style={ShoppingCartStyles.cardEmpty}>
+                    <Icon
+                        name={Constants.iconEmpty}
+                        size={Constants.sizeIcon * 5}
+                        color={Colors.primaryLight}
+                    />
+                    <Text style={ShoppingCartStyles.messageEmpty}>{Constants.titleButtonCartEmpty}</Text>
+                    <TouchableOpacity style={ShoppingCartStyles.buttonEmpty} onPress={() => { navigation.navigate(Constants.pageMarketplace) }}>
+                        <Text style={ShoppingCartStyles.buttonTextEmpty}>{Constants.titleButtonPagInitial}</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
+            <BottomBar />
         </View>
     )
 }

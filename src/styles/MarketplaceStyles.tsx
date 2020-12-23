@@ -17,6 +17,12 @@ const MarketplaceStyles = StyleSheet.create({
     scrollviewProducts: {
         width: Dimensions.get('screen').width,
     },
+
+    loading: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: Dimensions.get('screen').height * 0.45
+    },
 })
 
 export default MarketplaceStyles

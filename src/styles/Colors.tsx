@@ -10,6 +10,8 @@ export const Colors = {
     secondaryDark: '#827b76',
     secondaryLight: '#e4dcd6',
 
+    optionFilter: '#cccccc',
+
     background: '#f5f5f5',
     statusBar: '#0214a1',
 

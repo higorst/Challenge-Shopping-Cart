@@ -3,7 +3,7 @@ import { all, spawn, takeEvery, takeLatest } from "redux-saga/effects";
 // SAGAS
 import { loadProductsSAGA } from './products'
 import { addCategory, removeCategory } from './categories'
-import { addItem, deleteItem, updateItem } from './cart'
+import { addItem, deleteItem, updateItem, finishBuy } from './cart'
 
 import { 
   SAGA_LOAD_PRODUCTS,
@@ -14,6 +14,7 @@ import {
   SAGA_ADD_ITEM_CART, 
   SAGA_REMOVE_ITEM_CART,
   SAGA_UPDATE_ITEM_CART,
+  SAGA_FINISH_BUY
 } from './types'
 
 export default function* rootSaga() {
@@ -27,5 +28,6 @@ export default function* rootSaga() {
     takeEvery(SAGA_ADD_ITEM_CART, addItem),
     takeEvery(SAGA_REMOVE_ITEM_CART, deleteItem),
     takeEvery(SAGA_UPDATE_ITEM_CART, updateItem),
+    takeEvery(SAGA_FINISH_BUY, finishBuy),
   ]);
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, SafeAreaView, FlatList } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
 
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -16,6 +16,7 @@ import Header from '../Components/Header/index';
 
 import { Constants } from '../Constants/Constants';
 import Menu from '../Components/Menu';
+import { Colors } from '../styles/Colors';
 
 interface ProductInterface {
     id: number
@@ -33,7 +34,7 @@ function Marketplace({ productsSAGA, categoriesSAGA }: any) {
     const [products, setProducts] = useState<ProductInterface[]>([])
     const [categories, setCategories] = useState<string[]>([])
 
-    function handleToProduct(product: ProductInterface){
+    function handleToProduct(product: ProductInterface) {
         navigation.navigate(Constants.pageProduct, {
             id: product.id,
             title: product.title,
@@ -54,17 +55,17 @@ function Marketplace({ productsSAGA, categoriesSAGA }: any) {
 
     return (
         <View style={MarketplaceStyles.container}>
-            <Header 
-                title={Constants.titleHeaderMarketplace} 
+            <Header
+                title={Constants.titleHeaderMarketplace}
                 search
             />
-            <Menu 
+            <Menu
                 categories={categories}
             />
             <ScrollView style={MarketplaceStyles.scrollviewProducts} >
                 <View style={MarketplaceStyles.containerProducts}>
                     {products.map(product => {
-                        if (categoriesSAGA.includes(product.category) || categoriesSAGA.length === 0){
+                        if (categoriesSAGA.includes(product.category) || categoriesSAGA.length === 0) {
                             return (
                                 <Product
                                     key={product.id}
@@ -74,7 +75,7 @@ function Marketplace({ productsSAGA, categoriesSAGA }: any) {
                                     description={product.description}
                                     category={product.category}
                                     image={product.image}
-    
+
                                     // onPressCard={() => handleToProduct(product)}
                                     onPressImage={() => handleToProduct(product)}
                                 />
@@ -87,6 +88,11 @@ function Marketplace({ productsSAGA, categoriesSAGA }: any) {
                     })}
                 </View>
             </ScrollView>
+            {products.length === 0 && (
+                <View style={MarketplaceStyles.loading}>
+                    <ActivityIndicator size="large" color={Colors.secondaryDark} />
+                </View>
+            )}
         </View>
     )
 }
@@ -96,7 +102,7 @@ const mapStateToProps = (state: any) => ({
     categoriesSAGA: state.categories.categories,
 });
 
-const mapDispatchToProps = (dispatch: any) => 
+const mapDispatchToProps = (dispatch: any) =>
     dispatch({ type: SAGA_LOAD_PRODUCTS })
 
 export default connect(

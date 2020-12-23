@@ -9,6 +9,17 @@ export const messages = {
     titleDescription: 'Descrição',
     titleCategory: 'Categoria',
 
-    titleMenuFilter: 'Filtro',
+    titleMenuFilter: 'Categorias',
     titleMenuOrder: 'Ordenar',
+
+    titlePriceTotal: 'Total',
+    titleFinish: 'Finalizar',
+
+    titleButtonPagInitial: 'PÁGINA INICIAL',
+    titleButtonCartEmpty: 'Seu carrinho está vazio',
+
+    titleAddItemsOnCart: 'Adicione itens ao carrinho',
+    titleItemsOnCart: 'Itens Selecionados',
+
+    messageFinish: 'Agradecemos por sua compra!\n\nNo Valor'
 };

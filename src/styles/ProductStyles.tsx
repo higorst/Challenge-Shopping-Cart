@@ -85,13 +85,25 @@ const ProductStyles = StyleSheet.create({
         marginTop: 15,
         marginBottom: 15,
     },
-    buttonCart: {
+    buttonCartAdd: {
+        width: Dimensions.get('screen').width * 0.45,
+        padding: 7,
+
+        borderWidth: 2,
+        borderColor: Colors.iconAdd,
+
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'row',
+
+        borderRadius: 10,
+    },
+    buttonCartRemove: {
         width: Dimensions.get('screen').width * 0.45,
         padding: 7,
 
         borderWidth: 2,
         borderColor: Colors.iconDelete,
-        backgroundColor: Colors.iconDelete,
 
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -101,10 +113,11 @@ const ProductStyles = StyleSheet.create({
     },
     buttonBuy: {
         width: Dimensions.get('screen').width * 0.45,
-        padding: 10,
+        padding: 11,
 
-        borderWidth: 2,
+        // borderWidth: 2,
         borderColor: Colors.iconDelete,
+        backgroundColor: Colors.iconDelete,
 
         justifyContent: 'space-around',
         alignItems: 'center',
@@ -115,12 +128,12 @@ const ProductStyles = StyleSheet.create({
 
     titleButtonCart: {
         fontSize: 16,
-        color: Colors.white,
+        color: Colors.black,
         fontWeight: 'bold'
     },
     titleButtonBuy: {
         fontSize: 16,
-        color: Colors.black,
+        color: Colors.white,
         fontWeight: 'bold'
     },
 })

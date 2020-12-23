@@ -4,6 +4,7 @@ import {
     ADD_ITEM_CART, 
     REMOVE_ITEM_CART,
     UPDATE_ITEM_CART,
+    FINISH_BUY
 } from '../Types'
 
 interface ProductInterface {
@@ -24,4 +25,7 @@ export function* deleteItem({ item }: { item: ProductInterface }) {
 }
 export function* updateItem({ item }: { item: ProductInterface }) {
     yield put({ type: UPDATE_ITEM_CART, payload: { item } })
+}
+export function* finishBuy() {
+    yield put({ type: FINISH_BUY})
 }

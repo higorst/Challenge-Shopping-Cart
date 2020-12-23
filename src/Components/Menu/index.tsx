@@ -45,7 +45,7 @@ function Menu(props: any) {
                                     setShowModal(!showModal)
                                 }}>
                                     <Icon
-                                        name={'hand-pointing-right'}
+                                        name={Constants.iconFilterAdd}
                                         size={Constants.sizeIcon * 1.2}
                                         color={Colors.secondaryDark}
                                     />
@@ -59,13 +59,23 @@ function Menu(props: any) {
 
             <View style={styles.containerMenu}>
                 <TouchableOpacity style={styles.button} onPress={() => {
-                    setShowModal( allCategories.length === categories.length ? showModal : !showModal)
+                    setShowModal(allCategories.length === categories.length ? showModal : !showModal)
                 }}>
                     <Text style={styles.menuOption}>{Constants.titleMenuFilter}</Text>
+                    <Icon
+                        name={Constants.iconFilter}
+                        size={Constants.sizeIcon}
+                        color={Colors.white}
+                    />
                 </TouchableOpacity>
                 <View style={styles.line} />
                 <TouchableOpacity style={styles.button}>
                     <Text style={styles.menuOption}>{Constants.titleMenuOrder}</Text>
+                    <Icon
+                        name={Constants.iconOrder}
+                        size={Constants.sizeIcon}
+                        color={Colors.white}
+                    />
                 </TouchableOpacity>
             </View>
             <ScrollView horizontal style={styles.scrollview} >
