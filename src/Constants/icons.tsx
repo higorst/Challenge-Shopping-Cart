@@ -8,4 +8,5 @@ export const icons = {
     iconSearch: 'shopping-search',
 
     iconBack: 'arrow-left',
+    iconCloseOption: 'close-circle',
 };

@@ -3,12 +3,9 @@ import { Text, View, SafeAreaView, FlatList } from 'react-native'
 
 import { ScrollView } from 'react-native-gesture-handler';
 
-import api from '../services/api';
-
 import MarketplaceStyles from '../styles/MarketplaceStyles';
 
 import { connect } from "react-redux";
-// import { loadProducts } from '../redux/Actions'
 import { useNavigation } from '@react-navigation/native';
 
 import { SAGA_LOAD_PRODUCTS } from '../redux/sagas/types'
