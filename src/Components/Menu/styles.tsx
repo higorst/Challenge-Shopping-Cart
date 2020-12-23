@@ -8,6 +8,38 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'space-around',
     },
+    modal: {
+        // flex: 1, 
+        width: Dimensions.get('screen').width * 0.7,
+        // height: 300,
+        backgroundColor: Colors.white,
+
+        flexDirection: 'column', 
+        position: 'absolute', 
+
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        alignSelf: 'center',
+
+        elevation: 5,
+        // flexGrow: 1,
+    },
+    itemModal: {
+        // elevation: 6,
+        margin: 5,
+        padding: 15,
+        flexDirection: "row",
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        width: Dimensions.get('screen').width * 0.7,
+    },
+    textItemModal:{
+        margin: 15,
+        fontSize: 15,
+
+        textTransform: "capitalize",
+        color: Colors.primary,
+    },
     scrollview: {
         marginTop: 10,
         marginLeft: 15,

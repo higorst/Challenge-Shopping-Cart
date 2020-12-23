@@ -14,7 +14,7 @@ function Option(props: any) {
     return (
         <View>
             <View style={styles.container}>
-                <Text>{props.title}</Text>
+                <Text style={styles.title}>{props.title}</Text>
             </View>
             <View style={styles.button}>
                 <TouchableOpacity onPress={() => {

@@ -26,7 +26,7 @@ interface ProductInterface {
     image: string
 }
 
-function Marketplace({ productsSAGA }: any) {
+function Marketplace({ productsSAGA, categoriesSAGA }: any) {
 
     const navigation = useNavigation()
 
@@ -44,20 +44,24 @@ function Marketplace({ productsSAGA }: any) {
         })
     }
 
-    function findCategories(products: ProductInterface[]){
-        let categories: string[] = []
-        for(const product of products){
-            if (!categories.some(item => item === product.category)){
-                categories.push(product.category)
-            }
-        }
-        setCategories(categories)
-    }
+    // function findCategories(products: ProductInterface[]){
+    //     let categories: string[] = []
+    //     for(const product of products){
+    //         if (!categories.some(item => item === product.category)){
+    //             categories.push(product.category)
+    //         }
+    //     }
+    //     setCategories(categories)
+    // }
 
     useEffect(() => {
         setProducts(productsSAGA)
-        findCategories(productsSAGA)
+        // findCategories(productsSAGA)
     }, [productsSAGA])
+
+    useEffect(() => {
+        setCategories(categoriesSAGA)
+    }, [categoriesSAGA])
 
     return (
         <View style={MarketplaceStyles.container}>
@@ -71,20 +75,26 @@ function Marketplace({ productsSAGA }: any) {
             <ScrollView style={MarketplaceStyles.scrollviewProducts} >
                 <View style={MarketplaceStyles.containerProducts}>
                     {products.map(product => {
-                        return (
-                            <Product
-                                key={product.id}
-                                id={product.id}
-                                title={product.title}
-                                price={product.price}
-                                description={product.description}
-                                category={product.category}
-                                image={product.image}
-
-                                onPressCard={() => handleToProduct(product)}
-                                onPressImage={() => handleToProduct(product)}
-                            />
-                        )
+                        if (categoriesSAGA.includes(product.category) || categoriesSAGA.length === 0){
+                            return (
+                                <Product
+                                    key={product.id}
+                                    id={product.id}
+                                    title={product.title}
+                                    price={product.price}
+                                    description={product.description}
+                                    category={product.category}
+                                    image={product.image}
+    
+                                    onPressCard={() => handleToProduct(product)}
+                                    onPressImage={() => handleToProduct(product)}
+                                />
+                            )
+                        } else {
+                            return (
+                                <View key={product.id} />
+                            )
+                        }
                     })}
                 </View>
             </ScrollView>
@@ -93,7 +103,8 @@ function Marketplace({ productsSAGA }: any) {
 }
 
 const mapStateToProps = (state: any) => ({
-    productsSAGA: state.products.products
+    productsSAGA: state.products.products,
+    categoriesSAGA: state.categories.categories,
 });
 
 const mapDispatchToProps = (dispatch: any) => 

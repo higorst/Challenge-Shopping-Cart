@@ -28,6 +28,13 @@ const styles = StyleSheet.create({
         right: 0,
         top: 0,
     },
+    title:{
+        // margin: 15,
+        fontSize: 15,
+
+        textTransform: "capitalize",
+        // color: Colors.primary,
+    }
 })
 
 export default styles
