@@ -40,8 +40,7 @@ function Header(props: any) {
         let new_price = priceTotal.toString().replace('.', ',')
         new_price = new_price.includes(',') ? new_price : new_price + ',00'
         new_price = new_price[new_price.length - 2] == ',' ? new_price + '0' : new_price
-        return new_price
-        // setPrice(new_price)
+        return priceTotal > 0 ? new_price : price
     }
 
     useEffect(() => {

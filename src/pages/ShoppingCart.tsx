@@ -30,6 +30,7 @@ function ShoppingCart(props: any) {
     const navigation = useNavigation()
 
     const [items, setItems] = useState<ProductInterface[]>([])
+    const [isEmpty, setIsEmpty] = useState(false)
 
 
     function handleToProduct(product: ProductInterface) {
@@ -45,12 +46,13 @@ function ShoppingCart(props: any) {
 
     useEffect(() => {
         setItems(props.items)
+        setIsEmpty(props.items.length === 0)
     }, [props.items])
 
     return (
         <View style={ShoppingCartStyles.container}>
             <Header
-                title={items.length === 0 ? Constants.titleAddItemsOnCart : Constants.titleItemsOnCart}
+                title={isEmpty ? Constants.titleAddItemsOnCart : Constants.titleItemsOnCart}
                 hideCart
                 back
             />
@@ -76,7 +78,7 @@ function ShoppingCart(props: any) {
                     })}
                 </View>
             </ScrollView>
-            {items.length === 0 && (
+            {isEmpty && (
                 <View style={ShoppingCartStyles.cardEmpty}>
                     <Icon
                         name={Constants.iconEmpty}

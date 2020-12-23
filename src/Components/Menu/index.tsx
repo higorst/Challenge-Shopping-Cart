@@ -61,22 +61,22 @@ function Menu(props: any) {
                 <TouchableOpacity style={styles.button} onPress={() => {
                     setShowModal(allCategories.length === categories.length ? showModal : !showModal)
                 }}>
-                    <Text style={styles.menuOption}>{Constants.titleMenuFilter}</Text>
+                    {/* <Text style={styles.menuOption}>{Constants.titleMenuFilter}</Text> */}
                     <Icon
                         name={Constants.iconFilter}
                         size={Constants.sizeIcon}
                         color={Colors.white}
                     />
                 </TouchableOpacity>
-                <View style={styles.line} />
-                <TouchableOpacity style={styles.button}>
+                {/* <View style={styles.line} /> */}
+                {/* <TouchableOpacity style={styles.button}>
                     <Text style={styles.menuOption}>{Constants.titleMenuOrder}</Text>
                     <Icon
                         name={Constants.iconOrder}
                         size={Constants.sizeIcon}
                         color={Colors.white}
                     />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <ScrollView horizontal style={styles.scrollview} >
                 {categories.map((category: string) => {

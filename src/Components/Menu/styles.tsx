@@ -4,7 +4,6 @@ import { Constants } from '../../Constants/Constants';
 
 const styles = StyleSheet.create({
     container: {
-        margin: 2,
         flexDirection: 'column',
         justifyContent: 'space-around',
     },
@@ -47,7 +46,7 @@ const styles = StyleSheet.create({
     },
     containerMenu: {
         flexDirection: 'row',
-        justifyContent: 'space-around',
+        // justifyContent: 'space-around',
         alignItems: 'center',
         marginTop: 10,
         marginLeft: 15,
@@ -71,15 +70,23 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     button: {
-        flex: 1,
+        // flex: 1,
+
+        // width: Dimensions.get('screen').width * 0.4,
+
 
         flexDirection: 'row',
         justifyContent: 'space-evenly',
 
+        position: 'absolute',
+        bottom: -5,
+        left: 5,
+        
+        borderRadius: 100,
+        elevation: 3,
+
         backgroundColor: Colors.primaryLight,
         padding: 5,
-        borderRadius: 5,
-        elevation: 3,
     },
 })
 
