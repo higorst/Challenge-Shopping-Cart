@@ -7,6 +7,13 @@ import ProductStyles from '../styles/ProductStyles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient'
 
+import { connect } from "react-redux";
+import {
+    SAGA_ADD_ITEM_CART,
+    SAGA_REMOVE_ITEM_CART,
+    SAGA_UPDATE_ITEM_CART,
+} from '../redux/sagas/types'
+
 // COMPONENTS
 import Header from '../Components/Header/index';
 
@@ -24,6 +31,8 @@ interface ProductInterface {
 }
 
 function Products(props: any) {
+
+    const navigation = useNavigation()
 
     // load product
     const route = useRoute()
@@ -61,7 +70,7 @@ function Products(props: any) {
 
             <LinearGradient
                 colors={[Colors.background, Colors.secondaryLight]}
-                style={{flex: 1}}
+                style={{ flex: 1 }}
             >
 
                 <ScrollView contentContainerStyle={ProductStyles.scrollview}>
@@ -87,20 +96,48 @@ function Products(props: any) {
                         </View>
 
                         <View style={ProductStyles.containerButtons}>
-                            <TouchableOpacity style={ProductStyles.buttonCart}>
+                            <TouchableOpacity style={ProductStyles.buttonCart} onPress={() => {
+                                props.dispatch({ type: SAGA_ADD_ITEM_CART, item: {
+                                    id: params.id,
+                                    title: params.title,
+                                    price: params.price,
+                                    description: params.description,
+                                    category: params.category,
+                                    image: params.image,
+                                    amount: 0
+                                } })
+                            }}>
                                 <Text style={ProductStyles.titleButtonCart}>{Constants.titleButtonAddCart}</Text>
                                 <Icon name={Constants.iconCartAdd} size={Constants.sizeIcon} color={Colors.white} />
                             </TouchableOpacity>
-                            <TouchableOpacity style={ProductStyles.buttonBuy}>
+                            <TouchableOpacity style={ProductStyles.buttonBuy} onPress={() => {
+                                props.dispatch({ type: SAGA_ADD_ITEM_CART, item: {
+                                    id: params.id,
+                                    title: params.title,
+                                    price: params.price,
+                                    description: params.description,
+                                    category: params.category,
+                                    image: params.image,
+                                    amount: 0
+                                } })
+                                navigation.navigate(Constants.pageShoppingCart)
+                            }}>
                                 <Text style={ProductStyles.titleButtonBuy}>{Constants.titleButtonBuyNow}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </ScrollView>
-            
+
             </LinearGradient>
         </View>
     )
 }
 
-export default Products
+// const mapStateToProps = (state: any) => ({
+//     productsSAGA: state.products.products,
+//     categoriesSAGA: state.categories.categories,
+// });
+
+export default connect(
+    // mapStateToProps,
+)(Products);

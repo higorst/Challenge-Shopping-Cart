@@ -44,19 +44,8 @@ function Marketplace({ productsSAGA, categoriesSAGA }: any) {
         })
     }
 
-    // function findCategories(products: ProductInterface[]){
-    //     let categories: string[] = []
-    //     for(const product of products){
-    //         if (!categories.some(item => item === product.category)){
-    //             categories.push(product.category)
-    //         }
-    //     }
-    //     setCategories(categories)
-    // }
-
     useEffect(() => {
         setProducts(productsSAGA)
-        // findCategories(productsSAGA)
     }, [productsSAGA])
 
     useEffect(() => {

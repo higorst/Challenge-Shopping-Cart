@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, View, TextInput } from 'react-native'
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import { connect } from "react-redux";
 
 import styles from './styles';
 import { Constants } from '../../Constants/Constants';
@@ -13,6 +15,8 @@ interface PropsHeader {
     title?: string
     back?: boolean
     search?: boolean
+    hideCart?: boolean
+    amount?: any
 }
 
 
@@ -22,45 +26,47 @@ function Header(props: PropsHeader) {
 
     const [enableSearch, setEnableSearch] = useState(false)
     const [searchText, setSearchText] = useState('')
-    const [itemsOnCart, setItemsOnCart] = useState(2)
+    const [itemsOnCart, setItemsOnCart] = useState(0)
 
-    // function handleToMarketplace() {
-    //     navigation
-    // }
-    function handleToShoppingCart(){
+    function handleToShoppingCart() {
         navigation.navigate(Constants.pageShoppingCart)
     }
 
+
+    useEffect(() => {
+        setItemsOnCart(props.amount)
+    }, [props.amount])
+
     return (
         <View>
-            {!enableSearch && (
-                <View style={styles.container}>
-                    {props.back && (<BorderlessButton onPress={navigation.goBack}>
-                        <Icon name={Constants.iconBack} size={Constants.sizeIcon} color={Colors.primary} />
-                    </BorderlessButton>)}
+            {/* {!enableSearch && ( */}
+            <View style={styles.container}>
+                {props.back && (<BorderlessButton onPress={navigation.goBack}>
+                    <Icon name={Constants.iconBack} size={Constants.sizeIcon} color={Colors.primary} />
+                </BorderlessButton>)}
 
-                    <Text style={styles.title}>{props.title}</Text>
+                <Text style={styles.title}>{props.title}</Text>
 
-                    {props.search && (<BorderlessButton onPress={() => setEnableSearch(!enableSearch)}>
+                {/* {props.search && (<BorderlessButton onPress={() => setEnableSearch(!enableSearch)}>
                         <Icon name={Constants.iconSearch} size={Constants.sizeIcon * 1.2} color={Colors.primary} />
-                    </BorderlessButton>)}
+                    </BorderlessButton>)} */}
 
-                    <BorderlessButton onPress={handleToShoppingCart}>
-                        <Icon
-                            name={itemsOnCart > 0 ? Constants.iconCartFull : Constants.iconCart}
-                            size={Constants.sizeIcon * 1.2}
-                            color={itemsOnCart > 0 ? Colors.secondaryDark : Colors.primary}
-                        />
-                        {itemsOnCart > 0 && (
-                            <View style={styles.numItemsOnCartContainer}>
-                                <Text style={styles.numItemsOnCart}>{itemsOnCart}</Text>
-                            </View>
-                        )}
-                    </BorderlessButton>
-                </View>
-            )}
+                {!props.hideCart && (<BorderlessButton onPress={handleToShoppingCart}>
+                    <Icon
+                        name={itemsOnCart > 0 ? Constants.iconCartFull : Constants.iconCart}
+                        size={Constants.sizeIcon * 1.2}
+                        color={itemsOnCart > 0 ? Colors.secondaryDark : Colors.primary}
+                    />
+                    {itemsOnCart > 0 && (
+                        <View style={styles.numItemsOnCartContainer}>
+                            <Text style={styles.numItemsOnCart}>{itemsOnCart}</Text>
+                        </View>
+                    )}
+                </BorderlessButton>)}
+            </View>
+            {/* )} */}
 
-            {enableSearch && (
+            {/* {enableSearch && (
                 <View style={styles.container}>
                     <BorderlessButton onPress={() => setEnableSearch(!enableSearch)}>
                         <Icon name={Constants.iconBack} size={Constants.sizeIcon} color={Colors.primary} />
@@ -77,11 +83,18 @@ function Header(props: PropsHeader) {
                     />
 
                 </View>
-            )}
+            )} */}
         </View>
 
     )
 
 }
 
-export default Header
+// export default Header
+const mapStateToProps = (state: any) => ({
+    amount: state.cart.amount,
+});
+
+export default connect(
+    mapStateToProps,
+)(Header);

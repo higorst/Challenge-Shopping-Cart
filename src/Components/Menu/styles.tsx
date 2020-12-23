@@ -56,7 +56,10 @@ const styles = StyleSheet.create({
     line: {
         height: 30,
         width: 1, 
-        backgroundColor: Colors.secondary
+        backgroundColor: Colors.secondary,
+
+        marginLeft: 5,
+        marginRight: 5,
     },
     menuOption: {
         width: Dimensions.get('screen').width * 0.4,

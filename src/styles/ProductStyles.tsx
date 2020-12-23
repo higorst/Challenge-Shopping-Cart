@@ -5,7 +5,6 @@ import { Constants } from '../Constants/Constants';
 const ProductStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: Colors.secondaryLight,
     },
     scrollview: {
         flexGrow: 1,
@@ -87,7 +86,7 @@ const ProductStyles = StyleSheet.create({
         marginBottom: 15,
     },
     buttonCart: {
-        width: Dimensions.get('screen').width * 0.35,
+        width: Dimensions.get('screen').width * 0.45,
         padding: 7,
 
         borderWidth: 2,
@@ -101,7 +100,7 @@ const ProductStyles = StyleSheet.create({
         borderRadius: 10,
     },
     buttonBuy: {
-        width: Dimensions.get('screen').width * 0.35,
+        width: Dimensions.get('screen').width * 0.45,
         padding: 10,
 
         borderWidth: 2,

@@ -59,7 +59,6 @@ function Menu(props: any) {
 
             <View style={styles.containerMenu}>
                 <TouchableOpacity style={styles.button} onPress={() => {
-                    // props.dispatch({ type: SAGA_ADD_CATEGORY, category: props.title })
                     setShowModal( allCategories.length === categories.length ? showModal : !showModal)
                 }}>
                     <Text style={styles.menuOption}>{Constants.titleMenuFilter}</Text>
