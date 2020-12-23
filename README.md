@@ -5,7 +5,7 @@
 
 ***
 Functionalities
-  - product listing
+  - Product listing
   - Adding items to the cart
   - Removing items from the cart
   - Product increase in cart
