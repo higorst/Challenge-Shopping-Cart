@@ -1,7 +1,7 @@
 # Shopping Cart
 
 ***
-<div style="text-align:center"><img src="app.gif" width="400" /></div>
+<div style="text-align:center"><img src="app.gif" width="200" /></div>
 
 ***
 Functionalities
